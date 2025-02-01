@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioConnection Protocol</title>
+    <style>
+        body {
+            background: #0d1b2a;
+            color: #83c5be;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 2rem;
+        }
 
+        .lab-panel {
+            background: #1b263b;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+            border: 2px solid #415a77;
+        }
+
+        .dna-match {
+            font-size: 2rem;
+            letter-spacing: 5px;
+            margin: 2rem 0;
+            color: #ffb703;
+        }
+
+        .base-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .base-btn {
+            background: #415a77;
+            color: #e0e1dd;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .base-btn:hover {
+            background: #778da9;
+            transform: scale(1.1);
+        }
+
+        #contact-form {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        input {
+            padding: 0.8rem;
+            margin: 1rem;
+            background: #0d1b2a;
+            border: 2px solid #415a77;
+            color: #e0e1dd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        #status {
+            color: #fb8500;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="lab-panel">
+        <h1>ð§¬ DNA Collaboration Check</h1>
+        <div class="dna-match">A â ?</div>
+        <p>Select the complementary base:</p>
+        
+        <div class="base-options">
+            <button class="base-btn" onclick="checkMatch('T')">T</button>
+            <button class="base-btn" onclick="checkMatch('C')">C</button>
+            <button class="base-btn" onclick="checkMatch('G')">G</button>
+        </div>
+
+        <div id="status"></div>
+
+        <div id="contact-form">
+            <p>ð§ª Match confirmed! Let's share research notes:</p>
+            <input type="tel" id="userNumber" 
+                   placeholder="ð± 10-digit lab contact" 
+                   pattern="[0-9]{10}" 
+                   title="Please enter a 10-digit number">
+            <br>
+            <button class="base-btn" style="width:auto;padding:1rem 2rem" onclick="sendToWhatsApp()">
+                Connect Labs
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function checkMatch(selectedBase) {
+            const correctAnswer = 'T';
+            const statusElement = document.getElementById('status');
+
+            if(selectedBase === correctAnswer) {
+                document.getElementById('contact-form').style.display = 'block';
+                statusElement.textContent = "âï¸ Base pairing successful!";
+                statusElement.style.color = "#2a9d8f";
+            } else {
+                statusElement.textContent = "â Remember: A always pairs with T";
+                statusElement.style.color = "#e76f51";
+                setTimeout(() => {
+                    statusElement.textContent = "Try again!";
+                    statusElement.style.color = "#fb8500";
+                }, 1500);
+            }
+        }
+
+        function sendToWhatsApp() {
+            const phoneNumber = document.getElementById('userNumber').value;
+            const whatsappUrl = `https://wa.me/7880667652?text=Hi%20%F0%9F%91%8B%20My%20number%20is%20${phoneNumber}`;
+            window.location.href = whatsappUrl;
+        }
+    </script>
+</body>
+</html>
